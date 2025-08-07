@@ -69,7 +69,7 @@ public class RmDupes {
     }
 
     public static void main(String[] args) {
-        int[] nums = {0,0,1,1,1,2,2,3,3,4};
+        int[] nums = {-8,-8,-5,-5,-5,-4,-4,-1,-1,-1,-1,0,0,1,1,1,2,2,3,3,4};
         int k = removeDuplicates(nums);
         System.out.println("Array length after removing duplicates: " + k);
     }

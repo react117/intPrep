@@ -15,7 +15,7 @@
  * --------
  * Input: nums = [0,0,1,1,1,2,2,3,3,4]
  * Output: 5, nums = [0,1,2,3,4,_,_,_,_,_]
- * Explanation: Your function should return k = 5, with the first five elements of nums being 0, 1, 2, 3, and 4 respectively.
+ * Explanation: Your method should return k = 5, with the first five elements of nums being 0, 1, 2, 3, and 4 respectively.
  * It does not matter what you leave beyond the returned k (hence they are underscores).
  * --------------------------------------------------------------------------------------------------------------------------------------------
  * 
@@ -32,8 +32,12 @@ package apps;
 import java.util.Arrays;
 
 public class RmDupes {
+    /**
+     * This method removes the duplicate integers from the input array
+     * @param numbersArr The input array which has sorted integer values in a non decreasing order.
+     * @return The length of the array which contains only unique elements i.e. after removal of the duplicate values.
+     */
     public static int removeDuplicates(int[] numbersArr) {
-
         Integer[] nums = Arrays.stream(numbersArr)          // Convert int array to an IntStream
                                .boxed()                     // Convert each int to an Integer object
                                .toArray(Integer[]::new);    // Collect elements into a new Integer array
@@ -59,14 +63,18 @@ public class RmDupes {
             }
         }
 
-        System.out.println("Input Array = " + Arrays.toString(nums));
+        System.out.println("Input Array = " + Arrays.toString(numbersArr));
         System.out.println("No Dupes Array = " + Arrays.toString(nums));
         System.out.println("No Dupes Array Length = " + (nums.length - duplicateCount));
 
         return nums.length - duplicateCount;
     }
 
-    public static void shiftElements(Integer[] nums, int prevElemIndex) {
+    /**
+     * This method shifts elements of the array 1 index towards left
+     * @param nums The array which values need to be shifted 1 index left.
+     */
+    private static void shiftElements(Integer[] nums, int prevElemIndex) {
         for(int j = prevElemIndex; j < nums.length; j++) {
             if(nums[j] != null) {
                 if(j == nums.length - 1) {

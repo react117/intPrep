@@ -32,45 +32,55 @@ package apps;
 import java.util.Arrays;
 
 public class RmDupes {
-    public static int removeDuplicates(int[] nums) {
-        int prevElemIndex = 0, duplicateCount = 0, i = 1, j;
-        while(i<nums.length) {
-            // System.out.println("prevElemIndex= " + prevElemIndex + " Current Index= " + i + " prevVal= " + nums[prevElemIndex] + " Current Val= " + nums[i]);
+    public static int removeDuplicates(int[] numbersArr) {
 
-            if(nums[prevElemIndex] != -101 && nums[i] != -101) {
-                if(nums[prevElemIndex] == nums[i]) {
-                    // System.out.println("Current Duplicate Number That Will Be Removed= " + nums[i] + " At The Index= " + i);
+        Integer[] nums = Arrays.stream(numbersArr)          // Convert int array to an IntStream
+                               .boxed()                     // Convert each int to an Integer object
+                               .toArray(Integer[]::new);    // Collect elements into a new Integer array
 
-                    // if duplicate encountered, remove the duplicate index [left shift from index i+1]
-                    for(j=i; j<nums.length; j++) {
-                        if(j == nums.length-1) {
-                            nums[j] = -101; // Using -101 as a sentinel value as the constraint list says the values are between -100 and 100
-                        } else {
-                            nums[j] = nums[j+1];
-                        }
-                    }
+        int prevElemIndex = 0, duplicateCount = 0, currentElemIndex = 1;
+        while(currentElemIndex < nums.length) {
+            // System.out.println("prevElemIndex= " + prevElemIndex + " Current Index= " + currentElemIndex + " prevVal= " + nums[prevElemIndex] + " Current Val= " + nums[currentElemIndex]);
+
+            if(nums[prevElemIndex] != null && nums[currentElemIndex] != null) {
+                if(nums[prevElemIndex] == nums[currentElemIndex]) {
+                    // if duplicate encountered, remove the duplicate index [left shift from index currentElemIndex+1]
+                    shiftElements(nums, prevElemIndex);
 
                     // Increase duplicate count
                     duplicateCount++;
-
                     // System.out.println("Current Duplicate Count= " + duplicateCount + " and Current Array= " + Arrays.toString(nums) + "\n");
                 } else {
                     prevElemIndex++; // increase prevElemIndex
-                    i++; // Increase parse counter
+                    currentElemIndex++; // Increase parse counter
                 }
             } else { // If we're at the end of the array with null values
                 break;
             }
         }
 
-        System.out.println("No Dupes Array" + Arrays.toString(nums));
+        System.out.println("Input Array = " + Arrays.toString(nums));
+        System.out.println("No Dupes Array = " + Arrays.toString(nums));
+        System.out.println("No Dupes Array Length = " + (nums.length - duplicateCount));
 
         return nums.length - duplicateCount;
     }
 
+    public static void shiftElements(Integer[] nums, int prevElemIndex) {
+        for(int j = prevElemIndex; j < nums.length; j++) {
+            if(nums[j] != null) {
+                if(j == nums.length - 1) {
+                    nums[j] = null;
+                } else {
+                    nums[j] = nums[j + 1];
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
-        int[] nums = {-8,-8,-5,-5,-5,-4,-4,-1,-1,-1,-1,0,0,1,1,1,2,2,3,3,4};
-        int k = removeDuplicates(nums);
+        int[] numbersArr = {-8,-8,-5,-5,-5,-4,-4,-1,-1,-1,-1,0,0,1,1,1,2,2,3,3,4};
+        int k = removeDuplicates(numbersArr);
         System.out.println("Array length after removing duplicates: " + k);
     }
 }

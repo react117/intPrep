@@ -56,15 +56,11 @@ public class Calculator {
             return;
         } else { // Parse otherwise
             for(int strIndex = 0; strIndex < expression.length(); strIndex++) {
-                // If the expression starts with an operator, we'll throw error
+                // If the expression starts with an operator, throw error
                 if(strIndex == 0 && (expression.charAt(strIndex) == '*' || expression.charAt(strIndex) == '/')) {
                     System.out.println("The input expression cannot begin with multiplication or division.");
                     return;
                 }
-
-                // if(strIndex == expression.length() -1 && isOperator(expression.charAt(strIndex))) {
-                //     break;
-                // }
 
                 if(expression.charAt(strIndex) != ' ') {
                     // System.out.println("Current char is: " + expression.charAt(strIndex) + " at Index: " + strIndex + " and it's numeric value: " + Character.getNumericValue(expression.charAt(strIndex)) + "\n");

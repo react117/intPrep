@@ -38,15 +38,21 @@
  * nums is an ascending array that is possibly rotated.
  * -104 <= target <= 104
  * --------------------------------------------------------------------------------------------------------------------------------------------------
- * 
+ *
  * Probable solution
- * -----------------
- * Detemine the mid point of the given array
- * Check whether the target bounds to be in the left side of the mid point or the right
- * To determine this, include the 1st and last element of the array into the mix
- * If the 1st element <= target <= mid element, the targert is in the left part and we can safely discard the right from the middle element
- * If the mid element <= target <= last element, the targert is in the right part and we can safely discard the left from the middle element
- * Continue this till we find the targer position or determine that the target doesn't belong to the given array
+ * ------------------
+ * Determine the mid point of the given array, check whether the target bounds to be in the left side of the mid point or the right
+ * 
+ * To determine this, 1st we need to check whether the left or right side of the mid index is sorted as can't compare the target 
+ * with both ends of the non sorted side to the mid index
+ * 
+ * If the left is sorted and 1st element <= target <= mid element, the target is in the left part and we can safely discard 
+ * the right from the middle element, else the target should be in the right side and the left can be safely discarded
+ * 
+ * If the right side is sorted and mid element <= target <= last element, the target is in the right part and we can safely discard 
+ * the left from the middle element, else the target should be in the left side and the right can be safely discarded
+ * 
+ * Continue this till we find the target position or determine that the target doesn't belong to the given array
 */
 public class RotatedSortedArray {
     /**
@@ -61,7 +67,7 @@ public class RotatedSortedArray {
     }
 
     /**
-     * This method do a custom binary search on the given array between the provided indeices and finds the position of target.
+     * This method do a custom binary search on the given array between the provided indices and finds the position of target.
      * @param nums The input array which has sorted integer values but possibly rotated from an unknown index.
      * @param target The element we need to search for in the given array.
      * @param numsStartIndex Starting position of the array from where we need to run the search.

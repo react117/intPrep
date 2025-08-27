@@ -29,7 +29,7 @@
  * Next is bracket (will use recursion)
  */
 
-package apps;
+// package apps;
 // import java.util.Arrays;
 import java.util.Stack;
 
@@ -113,7 +113,7 @@ public class Calculator {
                 System.out.println("Input expression cannot contain of only operators!");
                 return;
             } else if (!calculateStack.empty()) {
-                finalResult = finalResult(calculateStack);
+                finalResult = sumAllElements(calculateStack);
             }
 
             System.out.println("The result is (drumroll sound): " + finalResult);
@@ -171,7 +171,7 @@ public class Calculator {
      * @param calculateStack Stack containing all values that needs to be summed up.
      * @return Summation of the values stored in the stack.
      */
-    private static int finalResult(Stack<Integer> calculateStack) {
+    private static int sumAllElements(Stack<Integer> calculateStack) {
         // System.out.println("Final Stack: " + Arrays.toString(calculateStack.toArray()));
         
         int stackSum = 0;

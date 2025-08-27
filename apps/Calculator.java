@@ -1,4 +1,5 @@
-/* Problem Statement
+/**
+ * Problem Statement
  * ------------------
  * Write a small calculator where the simpler equation can be supplied as a string
  * It will support +, -, *, / and understand precedence of each (precedence is a stretch goal)
@@ -6,19 +7,19 @@
  * Expected i/o: "2 + 2 - 1" -> 3 || "2 + 4 / 2" -> 4
  * ----------------------------------------------------------------------------------------------------
  * 
- * Step 0: Intialise a stack to push elements before computatation (as some operators has higher 
- * precedance we don't know which operation has to be perfoirmed first), also intialise two variables
+ * Step 0: Initialize a stack to push elements before computation (as some operators has higher 
+ * precedence we don't know which operation has to be performed first), also initialize two variables
  * to keep track of the current operator and operand, default operator value is + and operand is 0.
  * 
  * Step 1: Parse the input string left to right.
  *      1a: If encountering an operator (+, -, *, /), update operator variable accordingly, go back
  *          to Step 1 and keep parsing.
- *      1b: If encountering an operand, update the operand variable acordingly. 
+ *      1b: If encountering an operand, update the operand variable accordingly. 
  *          1b-i: If the current operator value is + or -, multiply the operand variable accordingly by
  *                +1 or -1, push it to the stack and restore the operator and operand variable to their 
  *                default values (+ and 0)
- *          1b-ii: If the current operator value is * or /, we have to give it precedance which means
- *                 we have to perform this operation NOW. So pop 1 elemennt from the stack, do the
+ *          1b-ii: If the current operator value is * or /, we have to give it precedence which means
+ *                 we have to perform this operation NOW. So pop 1 element from the stack, do the
  *                 operation with the current operand variable accordingly (* or / based on the current 
  *                 value of operator variable), push the result in to the stack and restore the operator 
  *                 and operand variable to their default values (+ and 0)
@@ -35,14 +36,14 @@ import java.util.Stack;
 
 public class Calculator {
     /**
-     * Parses the given expression string. We'll also initialise a stack, an operator and an operand variable
-     * with default values. For the stack0 management (what and when to push or pop), we'll call pushToStack() 
+     * Parses the given expression string. We'll also initialize a stack, an operator and an operand variable
+     * with default values. For the stack management (what and when to push or pop), we'll call pushToStack() 
      * and pass the current operator, operand and the stack (Step 0, 1 and 1c logic here)
      * @param expression The given expression that needs to be evaluated.
      * @return the value after evaluation if the input expression, 0 otherwise.
      */
     private static void evaluate(String expression) {
-        // Initialise a stack, an operator and an operand variable with default values.
+        // Initialize a stack, an operator and an operand variable with default values.
         Stack<Integer> calculateStack = new Stack();
         int currentOperand = 0, finalResult = 0,  operatorCount = 0, operandCount = 0;
         char currentOperator = '+';
@@ -167,7 +168,7 @@ public class Calculator {
     }
 
     /**
-     * Calculate sumation of the stack values and return final result (step 1c logic here)
+     * Calculate summation of the stack values and return final result (step 1c logic here)
      * @param calculateStack Stack containing all values that needs to be summed up.
      * @return Summation of the values stored in the stack.
      */

@@ -62,54 +62,38 @@ public class RotatedSortedArray {
      * @return The index of target in nums if it's present, -1 otherwise.
      */
     public static int search(int[] nums, int target) {
-        int numsStartIndex = 0, numsEndIndex = nums.length -1;
-        return customBinarySearch(nums, target, numsStartIndex, numsEndIndex);
-    }
+        int numsLeftPtr = 0, numsRightPtr = nums.length -1;
 
-    /**
-     * This method do a custom binary search on the given array between the provided indices and finds the position of target.
-     * @param nums The input array which has sorted integer values but possibly rotated from an unknown index.
-     * @param target The element we need to search for in the given array.
-     * @param numsStartIndex Starting position of the array from where we need to run the search.
-     * @param numsEndIndex Ending position of the array till where we need to run the search.
-     * @return The index of target in nums if it's present, -1 otherwise.
-     */
-    private static int customBinarySearch(int[] nums, int target, int numsStartIndex, int numsEndIndex) {   
-        if(numsStartIndex < numsEndIndex) {
-            int numsMidIndex = (numsStartIndex + numsEndIndex) / 2;
+        while(numsLeftPtr <= numsRightPtr) {
+            int numsMidPtr = (numsLeftPtr + numsRightPtr) / 2;
+            
+            // System.out.println("numsLeftPtr= " + numsLeftPtr + " and numsMidPtr= " + numsMidPtr + " and numsRightPtr= " + numsRightPtr + "\n");
 
-            // System.out.println("Array Starts at: " + numsStartIndex + " and Array mid is: " + numsMidIndex + " and Array ends at: " + numsEndIndex + "\n");
-            // System.out.println("Target element is: " + target + "\n");
+            // If the target exists in the left, right or middle position of the current search area of the array, 
+            // we should return it immediately
+            if(nums[numsLeftPtr] == target) {
+                return numsLeftPtr;
+            } else if(nums[numsRightPtr] == target) {
+                return numsRightPtr;
+            } else if(nums[numsMidPtr] == target) {
+                return numsMidPtr;
+            }
 
-            if(nums[0] == target) { // target found at the beginning
-                return 0;
-            } else if(nums[numsMidIndex] == target) { // target found at the middle
-                return numsMidIndex;
-            } else if(nums[nums.length - 1] == target) { // target found at the end
-                return nums.length - 1;
-            } else if(numsStartIndex == numsMidIndex || numsMidIndex == numsEndIndex) { // we are at the middle of the array and the target not found
-                return -1;
-            } else if (nums[0] < nums[numsMidIndex]) { // Left of the mid point is sorted, the rotation is in the right side
-                // System.out.println("In Left Sorted\n");
-                if (nums[0] < target && target < nums[numsMidIndex]) { // target is in the sorted side
-                    // System.out.println("In Left\n");
-                    return customBinarySearch(nums, target, numsStartIndex, numsMidIndex);
+            if (nums[numsLeftPtr] <= nums[numsMidPtr]) { // Left side of the mid pointer is sorted, the rotation is in the right side
+                if (nums[numsLeftPtr] < target && target < nums[numsMidPtr]) { // target is in the sorted side
+                    numsRightPtr = numsMidPtr - 1;
                 } else {  // target should be in the other side
-                    // System.out.println("In Right\n");
-                    return customBinarySearch(nums, target, numsMidIndex, numsEndIndex);
+                    numsLeftPtr = numsMidPtr + 1;
                 }
-            }  else if (nums[numsMidIndex] < nums[numsEndIndex]) { // Right of the mid point is sorted, the rotation is in the left side
-                // System.out.println("In Right Sorted\n");
-                if (nums[numsMidIndex] < target && target < nums[numsEndIndex]) { // target should be in the sorted side
-                    // System.out.println("In Right\n");
-                    return customBinarySearch(nums, target, numsMidIndex, numsEndIndex);
+            } else if (nums[numsMidPtr] <= nums[numsRightPtr]) { // Right of the mid pointer is sorted, the rotation is in the left side
+                if (nums[numsMidPtr] < target && target < nums[numsRightPtr]) { // target is in the sorted side
+                    numsLeftPtr = numsMidPtr + 1;
                 } else {  // target should be in the other side
-                    // System.out.println("In Left\n");                    
-                    return customBinarySearch(nums, target, numsStartIndex, numsMidIndex);
+                    numsRightPtr = numsMidPtr - 1;
                 }
             }
         }
-        
+
         return -1;
     }
 
